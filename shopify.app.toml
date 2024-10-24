@@ -3,7 +3,7 @@
 client_id = "ebd5495cf93d297038f6d1b66e1575f5"
 name = "monitor"
 handle = "monitor-3"
-application_url = "https://separation-hearings-treaty-tunisia.trycloudflare.com"
+application_url = "https://curriculum-are-known-portal.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_orders,read_returns,write_orders"
 
 [auth]
 redirect_urls = [
-  "https://separation-hearings-treaty-tunisia.trycloudflare.com/auth/callback",
-  "https://separation-hearings-treaty-tunisia.trycloudflare.com/auth/shopify/callback",
-  "https://separation-hearings-treaty-tunisia.trycloudflare.com/api/auth/callback"
+  "https://curriculum-are-known-portal.trycloudflare.com/auth/callback",
+  "https://curriculum-are-known-portal.trycloudflare.com/auth/shopify/callback",
+  "https://curriculum-are-known-portal.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

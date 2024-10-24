@@ -8,7 +8,6 @@ export const action: ActionFunction = async () => {
   const shop = "app-tutorial-test.myshopify.com";
   try {
     const { admin } = await shopify.unauthenticated.admin(shop);
-    console.log("admin");
 
     const query = `
     {

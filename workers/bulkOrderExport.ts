@@ -5,7 +5,7 @@ export async function bulkOrderExport(
 ) {
   const query = `
     {
-      orders(first: 250) {
+       orders(first: 250) {
         edges {
           node {
             id
@@ -18,6 +18,22 @@ export async function bulkOrderExport(
               shopMoney {
                 amount
                 currencyCode
+              }
+            }
+            refunds {
+                id
+                totalRefundedSet {
+                  shopMoney {
+                   amount
+                   currencyCode
+                  }
+                }
+            }
+            returns (first: 250) {
+              edges {
+                node {
+                  id
+                }
               }
             }
           }

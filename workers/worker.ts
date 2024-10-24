@@ -3,6 +3,7 @@ import shopify from "app/shopify.server";
 import { bulkOrderExport } from "./bulkOrderExport";
 import cron from "node-cron";
 import { checkBulkOperationStatus } from "./checkBulkOperation";
+import { parseAndStoreData } from "./parseAndStoreData";
 
 export async function exportOrders(id: number, shop: string) {
   try {
@@ -55,6 +56,11 @@ export async function exportOrders(id: number, shop: string) {
         console.log(
           `Bulk operation completed for shop ${shop}. Download URL: ${operationUrl}`,
         );
+
+        if (operationUrl) {
+          await parseAndStoreData(operationUrl);
+        }
+
         isComplete = true;
       } else if (operationStatus === "FAILED") {
         await db.bulkOperation.update({
