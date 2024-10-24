@@ -1,11 +1,11 @@
 import { useLoaderData } from "@remix-run/react";
-import { getOrdersLoader } from "app/services/.server/loaders/admin.loader.orders";
+import { getOrdersLoader } from "app/services/.server/loaders/orders.loader";
 
 export const loader = getOrdersLoader;
 
 export default function OrderList() {
   const { orders } = useLoaderData<typeof loader>();
-
+  console.log("orders!!!!!!!", orders);
   return (
     <div>
       {orders.length > 0 ? (
@@ -21,19 +21,15 @@ export default function OrderList() {
               <th>Return Cost</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {orders.map((order) => (
               <tr key={order.id}>
                 <td>{order.id}</td>
                 <td>{order.customerName}</td>
                 <td>{order.customerEmail}</td>
-                <td>{order.orderCount}</td>
-                <td>{order.returnCount}</td>
-                <td>{order.returnPercentage}%</td>
-                <td>${order.returnCost}</td>
               </tr>
             ))}
-          </tbody>
+          </tbody> */}
         </table>
       ) : (
         <p>No orders found.</p>

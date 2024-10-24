@@ -1,6 +1,6 @@
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { Button, Card, Page, Text } from "@shopify/polaris";
+import { Button, Card, Page } from "@shopify/polaris";
 import db from "../db.server";
 import { useCallback } from "react";
 import { Form } from "@remix-run/react";
@@ -37,13 +37,12 @@ export default function BulkOrderExport() {
   );
   return (
     <Form method="post">
-      <Page primaryAction={primaryAction()}>
-        <Card>
-          <Text as="p">
-            Click the button to initiate a bulk order export for orders.
-          </Text>
-        </Card>
-      </Page>
+      <Card>
+        <Page
+          primaryAction={primaryAction()}
+          subtitle=" Click the button to initiate a bulk order export for orders."
+        ></Page>
+      </Card>
     </Form>
   );
 }

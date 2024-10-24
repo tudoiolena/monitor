@@ -4,6 +4,7 @@ import { bulkOrderExport } from "./bulkOrderExport";
 import cron from "node-cron";
 import { checkBulkOperationStatus } from "./checkBulkOperation";
 import { parseAndStoreData } from "./parseAndStoreData";
+import { createPresentationRecord } from "./createPresentationRecord";
 
 export async function exportOrders(id: number, shop: string) {
   try {
@@ -61,6 +62,21 @@ export async function exportOrders(id: number, shop: string) {
           await parseAndStoreData(operationUrl);
         }
 
+        const customerEmails = await db.order.findMany({
+          select: { customerEmail: true },
+          distinct: ["customerEmail"],
+        });
+
+        for (const { customerEmail } of customerEmails) {
+          const presentationRecord =
+            await createPresentationRecord(customerEmail);
+          if (presentationRecord) {
+            console.log("Presentation Record Updated:", presentationRecord);
+          } else {
+            console.log("No orders found for the customer.");
+          }
+        }
+
         isComplete = true;
       } else if (operationStatus === "FAILED") {
         await db.bulkOperation.update({
@@ -81,14 +97,14 @@ export async function exportOrders(id: number, shop: string) {
         await new Promise((resolve) => setTimeout(resolve, 10000));
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error processing export orders for shop ${shop}:`, error);
 
     await db.bulkOperation.update({
       where: { id },
       data: {
         status: "FAILED",
-        error: error.message,
+        error: error,
         updatedAt: new Date(),
         inProgress: false,
       },

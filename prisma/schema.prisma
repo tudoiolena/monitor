@@ -60,7 +60,7 @@ model Return {
 model PresentationTable {
   id               Int      @id @default(autoincrement())
   customerName     String
-  customerEmail    String
+  customerEmail    String   @unique
   orderCount       Int
   returnCount      Int
   returnPercetage  String

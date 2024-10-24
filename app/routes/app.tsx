@@ -25,10 +25,11 @@ export default function App() {
         <Link to="/app" rel="home">
           Home
         </Link>
-        <Link to="/app/additional">Additional page</Link>
-        <Link to="/app/test-sandbox">Test</Link>
-        <Link to="/app/export">Order Export Status</Link>
-        <Link to="/app/orders">Orders</Link>
+        {/* <Link to="/app/additional">Additional page</Link> */}
+        <Link to="/app/test-sandbox">Testing Sandbox</Link>
+        <Link to="/app/export">Start Export</Link>
+        <Link to="/app/status">Exporting Status</Link>
+        <Link to="/app/orders-report">Orders Report</Link>
       </NavMenu>
       <Outlet />
     </AppProvider>
