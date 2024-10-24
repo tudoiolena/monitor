@@ -3,7 +3,7 @@
 client_id = "ebd5495cf93d297038f6d1b66e1575f5"
 name = "monitor"
 handle = "monitor-3"
-application_url = "https://musician-rugs-headset-earthquake.trycloudflare.com"
+application_url = "https://separation-hearings-treaty-tunisia.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_products,write_products"
+scopes = "read_customers,read_orders,read_returns,write_orders"
 
 [auth]
 redirect_urls = [
-  "https://musician-rugs-headset-earthquake.trycloudflare.com/auth/callback",
-  "https://musician-rugs-headset-earthquake.trycloudflare.com/auth/shopify/callback",
-  "https://musician-rugs-headset-earthquake.trycloudflare.com/api/auth/callback"
+  "https://separation-hearings-treaty-tunisia.trycloudflare.com/auth/callback",
+  "https://separation-hearings-treaty-tunisia.trycloudflare.com/auth/shopify/callback",
+  "https://separation-hearings-treaty-tunisia.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

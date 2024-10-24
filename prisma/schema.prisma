@@ -30,3 +30,28 @@ model Session {
   collaborator  Boolean?  @default(false)
   emailVerified Boolean?  @default(false)
 }
+
+model Order {
+  id               Int      @id @default(autoincrement())
+  customerName     String
+  customerEmail    String   @unique
+  orderCount       Int      @default(0)
+  returnCount      Int      @default(0)
+  returnPercentage Int
+  returnCost       Int
+}
+
+model BulkOperation {
+  id          Int   @id @default(autoincrement())
+  operationId String
+  shop        String
+  status      String @default("PENDING")
+  error       String
+  retryCount  Int @default(0)
+  maxRetries  Int @default(3)
+  urlToFile   String
+  inProgress  Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
