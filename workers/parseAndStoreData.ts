@@ -1,5 +1,13 @@
 import db from "../app/db.server";
 
+type nodeId = {
+  id: String;
+};
+
+type ReturnEdge = {
+  node: nodeId;
+};
+
 export async function parseAndStoreData(url: string) {
   try {
     const response = await fetch(url);
@@ -33,9 +41,11 @@ export async function parseAndStoreData(url: string) {
             })) || [];
 
           const returns =
-            record.returns?.edges?.map((returnEdge: any) => ({
+            record.returns?.edges?.map((returnEdge: ReturnEdge) => ({
               returnId: returnEdge?.node?.id || "N/A",
             })) || [];
+
+          console.log("RETURN:", record.returns || "N/A");
 
           records.push({
             customerName,

@@ -64,7 +64,7 @@ model PresentationTable {
   orderCount       Int
   returnCount      Int
   returnPercetage  String
-  costOfReturns    Int
+  costOfReturns    String
 }
 
 model BulkOperation {

@@ -11,8 +11,9 @@ export async function createPresentationRecord(customerEmail: string) {
 
   const orderCount = orders.length;
   let returnCount = 0;
-  let costOfReturns = 0;
+  let costOfReturnsAmount = 0;
   const customerName = orders[0].customerName;
+  const currency = orders[0].currency;
 
   for (const order of orders) {
     if (order.returns && order.returns.length > 0) {
@@ -20,7 +21,7 @@ export async function createPresentationRecord(customerEmail: string) {
     }
 
     if (order.refunds && order.refunds.length > 0) {
-      costOfReturns += order.refunds.reduce((sum, refund) => {
+      costOfReturnsAmount += order.refunds.reduce((sum, refund) => {
         return sum + refund.totalRefunded;
       }, 0);
     }
@@ -29,13 +30,16 @@ export async function createPresentationRecord(customerEmail: string) {
   const returnPercentage =
     orderCount > 0 ? Math.round((returnCount * 100) / orderCount) : "N/A";
 
+  const formattedCostOfReturns =
+    (costOfReturnsAmount / 100).toFixed(2) + ` ${currency}`;
+
   const presentationRecord = await db.presentationTable.upsert({
     where: { customerEmail },
     update: {
       orderCount,
       returnCount,
       returnPercetage: `${returnPercentage}%`,
-      costOfReturns,
+      costOfReturns: formattedCostOfReturns,
       customerName,
     },
     create: {
@@ -44,7 +48,7 @@ export async function createPresentationRecord(customerEmail: string) {
       orderCount,
       returnCount,
       returnPercetage: `${returnPercentage}%`,
-      costOfReturns,
+      costOfReturns: formattedCostOfReturns,
     },
   });
 

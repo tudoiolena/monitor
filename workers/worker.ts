@@ -113,6 +113,7 @@ export async function exportOrders(id: number, shop: string) {
 }
 
 cron.schedule("*/1 * * * *", async () => {
+  //instead of the code below exec bulk import function (and all other functions) from my workers with catch, without await
   console.log("Checking the queue for pending tasks...");
   const pendingTask = await db.bulkOperation.findFirst({
     where: { status: "PENDING", inProgress: false },
