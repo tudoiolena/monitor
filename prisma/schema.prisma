@@ -35,7 +35,7 @@ model Order {
   id               Int       @id @default(autoincrement())
   customerName     String
   customerEmail    String
-  totalCost        Int
+  totalCost        Decimal
   currency         String
   refunds          Refund[]
   returns          Return[]
@@ -46,7 +46,7 @@ model Refund {
   orderId          Int
   order            Order    @relation(fields: [orderId], references: [id])
   refundId         String
-  totalRefunded    Int
+  totalRefunded    Decimal
   refundCurrency   String
 }
 
@@ -55,6 +55,7 @@ model Return {
   orderId          Int
   order            Order    @relation(fields: [orderId], references: [id])
   returnId         String
+
 }
 
 model PresentationTable {

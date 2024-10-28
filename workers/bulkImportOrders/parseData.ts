@@ -1,24 +1,23 @@
-//runner function - find tasks for execution with special status
-// process - pass a task, change status in db and finish
-
+import { parseAndStoreData } from "workers/parseAndStoreData";
 import db from "../../app/db.server";
 
-export async function findPendingTask() {
+export async function findCheckedTask() {
   try {
     const pendingTask = await db.bulkOperation.findFirst({
-      where: { status: "PENDING", inProgress: false },
+      where: { status: "GENERATION_CHECKED", inProgress: true },
     });
     return pendingTask;
   } catch (error) {
-    console.error("Error finding pending task:", error);
+    console.error("Error finding checked task:", error);
     throw error;
   }
 }
 
-export async function processPendingTask(task: {
+export async function processCheckedTask(task: {
   id: number;
   retryCount: number;
   maxRetries: number;
+  operationUrl: string;
 }) {
   try {
     const start = Date.now();
@@ -26,15 +25,16 @@ export async function processPendingTask(task: {
 
     while (retryCount < task.maxRetries) {
       try {
+        await parseAndStoreData(task.operationUrl);
         await db.bulkOperation.update({
           where: { id: task.id },
           data: {
-            status: "WAIT_GENERATION",
+            status: "DATA_PARSED",
             inProgress: true,
             updatedAt: new Date(),
           },
         });
-        console.log(`Task ${task.id} status updated to WAIT_GENERATION.`);
+        console.log(`Task ${task.id} status updated to DATA_PARSED.`);
         return;
       } catch (err) {
         retryCount++;

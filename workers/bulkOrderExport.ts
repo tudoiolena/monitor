@@ -4,12 +4,13 @@ export async function bulkOrderExport(
   graphql: UnauthenticatedAdminContext["admin"]["graphql"],
 ) {
   const query = `
-    {
-       orders(first: 250) {
+   {
+      orders(first: 250) {
         edges {
           node {
             id
             customer {
+              id
               email
               firstName
               lastName
@@ -23,14 +24,14 @@ export async function bulkOrderExport(
             refunds {
                 id
                 totalRefundedSet {
-                  shopMoney {
-                   amount
-                   currencyCode
-                  }
-                }
+                 shopMoney {
+              amount
+              currencyCode
             }
+          }
+              }
             returns (first: 250) {
-              edges {
+              edges{
                 node {
                   id
                 }
